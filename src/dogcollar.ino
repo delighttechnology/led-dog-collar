@@ -1,3 +1,7 @@
+#
+# Copyright (c) 2022 by Andrzej Strzala aka Delight Technology. All Rights Reserved.
+#
+
 #include <EasyButton.h>
 #include <FastLED.h>
 
