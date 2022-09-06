@@ -1,5 +1,7 @@
 # Dog Collar
-LED Dog Collar
+This is a project of LED Dog Collar.
+
+![Algorithm schema](./images/main.jpg)
 
 # header H1
 ## header H2
@@ -29,4 +31,4 @@ $ npm install
 $ npm start
 ```
 
-![Algorithm schema](./images/schema.jpg)
+
