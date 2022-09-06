@@ -15,8 +15,8 @@ This is a project of LED Dog Collar.
 - Simple One-Button user interface
 - WS2812b LEDs
 	
-## Technologies
-Project is created with:
+## PCB
+<img src="./images/main2.jpg" width="650">
 * Lorem version: 12.3
 * Ipsum version: 2.33
 * Ament library version: 999
