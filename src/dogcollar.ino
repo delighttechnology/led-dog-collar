@@ -1,74 +1,80 @@
- #include <ezButton.h>
- #include <FastLED.h>
+#include <EasyButton.h>
 
- // define the LEDs
- #define LED_PIN 2 //pin the LEDs are connected to
- #define NUM_LEDS 38
- #define MAX_BRIGHTNESS 30 //maximum brightness - useful if running off battery
- #define LED_TYPE WS2812B
- #define COLOR_ORDER GRB
+#include <FastLED.h>
 
- struct CRGB leds[NUM_LEDS];
+#define LED_PIN 2 //pin the LEDs are connected to
+#define KEEP_ALIVE 3
+#define BUTTON_PIN 4
+#define NUM_LEDS 37
+#define MAX_BRIGHTNESS 30 //maximum brightness - useful if running off battery
+#define UPDATES_PER_SECOND 60
 
- #define UPDATES_PER_SECOND 60
+#define LED_TYPE WS2812B
+#define COLOR_ORDER GRB
 
- int period = 5000;
- unsigned long time_now = 0;
+// define the buttons that we'll use.
+// one to control brightness and one to select palette.
+EasyButton button(BUTTON_PIN);
 
- // define the buttons that we'll use.
- // one to control brightness and one to select palette.
- ezButton button(4);
+struct CRGB leds[NUM_LEDS];
+int period = 30000;
+unsigned long time_now = 0;
 
- int paletteCounter = 0;
- boolean loopPalettes = 0;
+//variables to keep track of the animation order
+int paletteCounter = 0;
+boolean loopPalettes = 0;
 
- void setup() {
-     delay(3000); // power-up safety delay - DO NOT REMOVE
+//Change colours periodically
+uint8_t gHue = 0;
 
-     FastLED.addLeds < LED_TYPE, LED_PIN, COLOR_ORDER > (leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
-     FastLED.setBrightness(32); // start off 1/8 brightness
-     FastLED.clear();
+void onPressedForDuration() {
+    digitalWrite(KEEP_ALIVE, LOW);
+    delay(20000);
+}
 
- }
+void onPressedButton() {
+    paletteCounter++;
+    loopPalettes = 0;
+    if (paletteCounter > 15) {
+        paletteCounter = 0;
+    }
+    delay(100);
+}
 
- uint8_t gHue = 0; // rotating "base color" used by many of the patterns
+void setup() {
+    pinMode(BUTTON_PIN, OUTPUT); // set the LED pin as an output
+    pinMode(KEEP_ALIVE, OUTPUT);
 
- void loop() {
+    // Initialize the button.
+    button.begin();
+    // Add the callback function to be called when the button is pressed for at least the given time.
 
-     button.loop(); // MUST call the loop() function first
+    button.onPressed(onPressedButton);
+    button.onPressedFor(1000, onPressedForDuration);
 
-     int btnState = button.getState();
-     //Serial.println(btnState);
+    FastLED.addLeds < LED_TYPE, LED_PIN, COLOR_ORDER > (leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
+    FastLED.setBrightness(MAX_BRIGHTNESS);
+    FastLED.clear();
+}
 
-     switch (button.isPressed()) {
-     case 1:
-         paletteCounter++;
-         loopPalettes = 0;
-         if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-             paletteCounter = 0;
-         }
-         break;
-     default:
-         break;
-     }
+void loop() {
 
-     EVERY_N_MILLISECONDS(30) {
-         gHue++;
-     } // slowly cycle the "base color" through the rainbow
+    // Keep alive the NPN
+    digitalWrite(KEEP_ALIVE, HIGH);
 
-     ChangePalettePeriodically();
+    // Continuously read the status of the button.
+    button.read();
 
-     FastLED.show();
-     FastLED.delay(1000 / UPDATES_PER_SECOND);
- }
+    EVERY_N_MILLISECONDS(30) {
+        gHue++;
+    } // slowly cycle the "base color" through the rainbow
 
- // There are several different palettes of colors demonstrated here.
- //
- // FastLED provides several 'preset' palettes: RainbowColors_p, RainbowStripeColors_p,
- // OceanColors_p, CloudColors_p, LavaColors_p, ForestColors_p, and PartyColors_p.
- //
- // Additionally, you can manually define your own color palettes, or you can write
- // code that creates color palettes on the fly.  All are shown here.
+    ChangePalettePeriodically();
+
+    FastLED.show();
+    FastLED.delay(1000 / UPDATES_PER_SECOND);
+
+}
 
 void ChangePalettePeriodically()
 {    
@@ -91,329 +97,329 @@ void ChangePalettePeriodically()
 
 }
 
- void rainbow() {
-     // FastLED's built-in rainbow generator
-     fill_rainbow(leds, NUM_LEDS, gHue, 7);
-     Serial.println(loopPalettes);
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
 
- }
+void rainbow() {
+    // FastLED's built-in rainbow generator
+    fill_rainbow(leds, NUM_LEDS, gHue, 7);
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
 
- void rainbowWithGlitter() {
-     // built-in FastLED rainbow, plus some random sparkly glitter
-     rainbow();
-     addGlitter(80);
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+}
 
- void addGlitter(fract8 chanceOfGlitter) {
-     if (random8() < chanceOfGlitter) {
-         leds[random16(NUM_LEDS)] += CRGB::White;
-     }
- }
+void rainbowWithGlitter() {
+    // built-in FastLED rainbow, plus some random sparkly glitter
+    rainbow();
+    addGlitter(80);
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
- void Glitter() {
-     if (random8() < 80) {
-         leds[random16(NUM_LEDS)] += CRGB::White;
-     }
-     fadeToBlackBy(leds, NUM_LEDS, 30);
+void addGlitter(fract8 chanceOfGlitter) {
+    if (random8() < chanceOfGlitter) {
+        leds[random16(NUM_LEDS)] += CRGB::White;
+    }
+}
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+void Glitter() {
+    if (random8() < 80) {
+        leds[random16(NUM_LEDS)] += CRGB::White;
+    }
+    fadeToBlackBy(leds, NUM_LEDS, 30);
 
- void confetti() {
-     // random colored speckles that blink in and fade smoothly
-     fadeToBlackBy(leds, NUM_LEDS, 35);
-     int pos = random16(NUM_LEDS);
-     leds[pos] += CHSV(gHue + random8(64), 200, 255);
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
+void confetti() {
+    // random colored speckles that blink in and fade smoothly
+    fadeToBlackBy(leds, NUM_LEDS, 35);
+    int pos = random16(NUM_LEDS);
+    leds[pos] += CHSV(gHue + random8(64), 200, 255);
 
- }
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
 
- void meteorRed() {
-     fadeToBlackBy(leds, NUM_LEDS, 15); // Smaller value = longer tail
-     int i = (millis() / 40) % NUM_LEDS; // How fast it goes.
-     leds[i] = CRGB::Red;
-     //leds[i-1] = CRGB::Red;
+}
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
+void meteorRed() {
+    fadeToBlackBy(leds, NUM_LEDS, 15); // Smaller value = longer tail
+    int i = (millis() / 40) % NUM_LEDS; // How fast it goes.
+    leds[i] = CRGB::Red;
+    //leds[i-1] = CRGB::Red;
 
- }
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
 
- void meteorLightBlue() {
-     fadeToBlackBy(leds, NUM_LEDS, 15); // Smaller value = longer tail
-     int i = (millis() / 40) % NUM_LEDS; // How fast it goes.
-     leds[i] = 0xE0FFFF;
-     //leds[i-1] = CRGB::Red;
+}
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+void meteorLightBlue() {
+    fadeToBlackBy(leds, NUM_LEDS, 15); // Smaller value = longer tail
+    int i = (millis() / 40) % NUM_LEDS; // How fast it goes.
+    leds[i] = 0xE0FFFF;
+    //leds[i-1] = CRGB::Red;
 
- void meteorRainbow() {
-     // Smaller value = longer tail
-     int i = (millis() / 40) % NUM_LEDS; // How fast it goes.
-     leds[i] = CHSV((millis() / 20) - (i * 3), 255, 255);
-     //leds[i-1] = CRGB::Red;
-     fadeToBlackBy(leds, NUM_LEDS, 15);
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+void meteorRainbow() {
+    // Smaller value = longer tail
+    int i = (millis() / 40) % NUM_LEDS; // How fast it goes.
+    leds[i] = CHSV((millis() / 20) - (i * 3), 255, 255);
+    //leds[i-1] = CRGB::Red;
+    fadeToBlackBy(leds, NUM_LEDS, 15);
 
- void anotherRainbow() {
-     // the moving rainbow
-     for (uint16_t i = 0; i < NUM_LEDS; i++) {
-         leds[i] = CHSV((millis() / 20) - (i * 3), 255, 255);
-     }
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+void anotherRainbow() {
+    // the moving rainbow
+    for (uint16_t i = 0; i < NUM_LEDS; i++) {
+        leds[i] = CHSV((millis() / 20) - (i * 3), 255, 255);
+    }
 
- void rainbowBeat() {
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     uint16_t beatA = beatsin16(30, 0, 255);
-     uint16_t beatB = beatsin16(20, 0, 255);
-     fill_rainbow(leds, NUM_LEDS, (beatA + beatB) / 2, 8);
+void rainbowBeat() {
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+    uint16_t beatA = beatsin16(30, 0, 255);
+    uint16_t beatB = beatsin16(20, 0, 255);
+    fill_rainbow(leds, NUM_LEDS, (beatA + beatB) / 2, 8);
 
- void RedWhiteBlue() {
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
-     uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
-     uint16_t sinBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 43690);
+void RedWhiteBlue() {
 
-     leds[sinBeat] = CRGB::Aqua;
-     leds[sinBeat2] = CRGB::BlueViolet;
-     leds[sinBeat3] = CRGB::DeepPink;
+    uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
+    uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
+    uint16_t sinBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 43690);
 
-     fadeToBlackBy(leds, NUM_LEDS, 25);
+    leds[sinBeat] = CRGB::Aqua;
+    leds[sinBeat2] = CRGB::BlueViolet;
+    leds[sinBeat3] = CRGB::DeepPink;
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+    fadeToBlackBy(leds, NUM_LEDS, 25);
 
- void LimeTurquoiseYellow() {
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
-     uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
-     uint16_t sinBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 43690);
+void LimeTurquoiseYellow() {
 
-     leds[sinBeat] = CRGB::Lime;
-     leds[sinBeat2] = CRGB::Maroon;
-     leds[sinBeat3] = CRGB::Yellow;
+    uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
+    uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
+    uint16_t sinBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 43690);
 
-     fadeToBlackBy(leds, NUM_LEDS, 25);
+    leds[sinBeat] = CRGB::Lime;
+    leds[sinBeat2] = CRGB::Maroon;
+    leds[sinBeat3] = CRGB::Yellow;
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+    fadeToBlackBy(leds, NUM_LEDS, 25);
 
- void RainbowThreeDots() {
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
-     uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
-     uint16_t sinBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 43690);
+void RainbowThreeDots() {
 
-     leds[sinBeat] = CHSV((millis() / 20) - (sinBeat * 3), 255, 255);
-     leds[sinBeat2] = CHSV((millis() / 20) - (sinBeat2 * 3), 255, 255);
-     leds[sinBeat3] = CHSV((millis() / 20) - (sinBeat3 * 3), 255, 255);
+    uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
+    uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
+    uint16_t sinBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 43690);
 
-     fadeToBlackBy(leds, NUM_LEDS, 25);
+    leds[sinBeat] = CHSV((millis() / 20) - (sinBeat * 3), 255, 255);
+    leds[sinBeat2] = CHSV((millis() / 20) - (sinBeat2 * 3), 255, 255);
+    leds[sinBeat3] = CHSV((millis() / 20) - (sinBeat3 * 3), 255, 255);
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+    fadeToBlackBy(leds, NUM_LEDS, 25);
 
- void movingDots() {
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     uint16_t posBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
-     uint16_t posBeat2 = beatsin16(60, 0, NUM_LEDS - 1, 0, 0);
+void movingDots() {
 
-     uint16_t posBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 32767);
-     uint16_t posBeat4 = beatsin16(60, 0, NUM_LEDS - 1, 0, 32767);
+    uint16_t posBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
+    uint16_t posBeat2 = beatsin16(60, 0, NUM_LEDS - 1, 0, 0);
 
-     // Wave for LED color
-     uint8_t colBeat = beatsin8(45, 0, 255, 0, 0);
+    uint16_t posBeat3 = beatsin16(30, 0, NUM_LEDS - 1, 0, 32767);
+    uint16_t posBeat4 = beatsin16(60, 0, NUM_LEDS - 1, 0, 32767);
 
-     leds[(posBeat + posBeat2) / 2] = CHSV(colBeat, 255, 255);
-     leds[(posBeat3 + posBeat4) / 2] = CHSV(colBeat, 255, 255);
+    // Wave for LED color
+    uint8_t colBeat = beatsin8(45, 0, 255, 0, 0);
 
-     fadeToBlackBy(leds, NUM_LEDS, 15);
+    leds[(posBeat + posBeat2) / 2] = CHSV(colBeat, 255, 255);
+    leds[(posBeat3 + posBeat4) / 2] = CHSV(colBeat, 255, 255);
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+    fadeToBlackBy(leds, NUM_LEDS, 15);
 
- CRGBPalette16 lavaPalette = CRGBPalette16(
-     CRGB::DarkRed, CRGB::Maroon, CRGB::DarkRed, CRGB::Maroon,
-     CRGB::DarkRed, CRGB::Maroon, CRGB::DarkRed, CRGB::DarkRed,
-     CRGB::DarkRed, CRGB::DarkRed, CRGB::Red, CRGB::Orange,
-     CRGB::White, CRGB::Orange, CRGB::Red, CRGB::DarkRed
- );
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
- void Lava() {
-     for (int i = 0; i < NUM_LEDS; i++) {
-         uint8_t brightness = inoise8(i * MAX_BRIGHTNESS, millis() / 5);
-         uint8_t index = inoise8(i * 100, millis() / 10);
-         leds[i] = ColorFromPalette(lavaPalette, index, brightness);
-         //leds[i] = CHSV(0, 255, brightness);
-     }
+CRGBPalette16 lavaPalette = CRGBPalette16(
+    CRGB::DarkRed, CRGB::Maroon, CRGB::DarkRed, CRGB::Maroon,
+    CRGB::DarkRed, CRGB::Maroon, CRGB::DarkRed, CRGB::DarkRed,
+    CRGB::DarkRed, CRGB::DarkRed, CRGB::Red, CRGB::Orange,
+    CRGB::White, CRGB::Orange, CRGB::Red, CRGB::DarkRed
+);
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
- }
+void Lava() {
+    for (int i = 0; i < NUM_LEDS; i++) {
+        uint8_t brightness = inoise8(i * MAX_BRIGHTNESS, millis() / 5);
+        uint8_t index = inoise8(i * 100, millis() / 10);
+        leds[i] = ColorFromPalette(lavaPalette, index, brightness);
+        //leds[i] = CHSV(0, 255, brightness);
+    }
 
- void NoiseBlueGreen() {
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+}
 
-     uint8_t octaves = 1;
-     uint16_t x = 0;
-     int scale = 100;
-     uint8_t hue_octaves = 1;
-     uint16_t hue_x = 1;
-     int hue_scale = 50;
-     uint16_t ntime = millis() / 3;
-     uint8_t hue_shift = 5;
+void NoiseBlueGreen() {
 
-     fill_noise16(leds, NUM_LEDS, octaves, x, scale, hue_octaves, hue_x, hue_scale, ntime, hue_shift);
+    uint8_t octaves = 1;
+    uint16_t x = 0;
+    int scale = 100;
+    uint8_t hue_octaves = 1;
+    uint16_t hue_x = 1;
+    int hue_scale = 50;
+    uint16_t ntime = millis() / 3;
+    uint8_t hue_shift = 5;
 
-     if (loopPalettes == 1) {
-         if (millis() >= time_now + period) {
-             time_now += period;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
+    fill_noise16(leds, NUM_LEDS, octaves, x, scale, hue_octaves, hue_x, hue_scale, ntime, hue_shift);
 
- }
+    if (loopPalettes == 1) {
+        if (millis() >= time_now + period) {
+            time_now += period;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
 
- void loopThrough() {
-     if (loopPalettes == 0) {
-         fadeToBlackBy(leds, NUM_LEDS, 5);
+}
 
-         if (millis() >= time_now + period) {
-             time_now += period;
-             loopPalettes = 1;
-             paletteCounter++;
-             if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-                 paletteCounter = 0;
-             }
-         }
-     }
-     if (loopPalettes == 1) {
-         paletteCounter++;
-         if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
-             paletteCounter = 0;
-         }
-     }
- }
+void loopThrough() {
+    if (loopPalettes == 0) {
+        fadeToBlackBy(leds, NUM_LEDS, 5);
+
+        if (millis() >= time_now + period) {
+            time_now += period;
+            loopPalettes = 1;
+            paletteCounter++;
+            if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+                paletteCounter = 0;
+            }
+        }
+    }
+    if (loopPalettes == 1) {
+        paletteCounter++;
+        if (paletteCounter > 15) { // adjust if you have more or less than 34 palettes
+            paletteCounter = 0;
+        }
+    }
+}
