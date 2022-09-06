@@ -1,2 +1,2 @@
-# dogcollar
+# Dog Collar
 LED Dog Collar
