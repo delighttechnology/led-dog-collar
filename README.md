@@ -16,8 +16,8 @@ This is a project of LED Dog Collar.
 	
 ## PCB
 <p float="left">
-  <img src="/pcb1.png" width="300" />
-  <img src="/pcb2.png" width="300" /> 
+  <img src="./images/pcb1.png" width="300" />
+  <img src="./images/pcb2.png" width="300" /> 
 </p>
 
 * Lorem version: 12.3
