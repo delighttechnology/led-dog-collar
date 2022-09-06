@@ -2,7 +2,7 @@
 This is a project of LED Dog Collar.
 
 
-<img src="./images/main2.jpg" width="550">
+<img src="./images/main2.jpg" width="650">
 
 ## Table of contents
 * [Features](#Features)
