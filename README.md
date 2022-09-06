@@ -6,7 +6,7 @@ This is a project of LED Dog Collar.
 ## Table of contents
 * [Features](#Features)
 * [PCB](#PCB)
-* * [Schematics](#Schematics)
+	* [Schematics](#Schematics)
 * [Setup](#setup)
 * [License](#License)
 
