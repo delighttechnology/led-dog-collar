@@ -1,18 +1,19 @@
 # Dog Collar
-LED Dog Collar
+This is a project of LED Dog Collar.
 
-# header H1
-## header H2
-### header H3
-#### header H4
+
+
 
 ## Table of contents
-* [General info](#general-info)
+* [Features](#Features)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
-## General info
-This project is simple Lorem ipsum dolor generator.
+## Features
+- ATTiny85 microcontroller
+- TP4056 LiPo Battery Charger with LEDs indicators
+- Simple One-Button user interface
+- WS2812b LEDs
 	
 ## Technologies
 Project is created with:
@@ -29,4 +30,9 @@ $ npm install
 $ npm start
 ```
 
-![Algorithm schema](./images/schema.jpg)
+# header H1
+## header H2
+### header H3
+#### header H4
+
+
