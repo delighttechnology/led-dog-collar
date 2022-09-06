@@ -1,12 +1,8 @@
 # Dog Collar
 This is a project of LED Dog Collar.
 
-<img src="./images/main.jpg" width="500">
+<img src="./images/main.jpg" width="600">
 
-# header H1
-## header H2
-### header H3
-#### header H4
 
 ## Table of contents
 * [Features](#Features)
@@ -14,13 +10,10 @@ This is a project of LED Dog Collar.
 * [Setup](#setup)
 
 ## Features
-- ATTiny85
-- 1.02" 128x80 pixel Epaper display
-- Onboard battery charger
-- Optimized battery capacity estimation
-- Simple One-Button user interface (Two optional buttons available)
-- WS2812 user LED
-- LiPo battery charger with indicator LED
+- ATTiny85 microcontroller
+- TP4056 LiPo Battery Charger with LEDs indicators
+- Simple One-Button user interface
+- WS2812b LEDs
 	
 ## Technologies
 Project is created with:
@@ -36,5 +29,10 @@ $ cd ../lorem
 $ npm install
 $ npm start
 ```
+
+# header H1
+## header H2
+### header H3
+#### header H4
 
 
