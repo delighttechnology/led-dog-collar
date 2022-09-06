@@ -5,8 +5,10 @@ This is a project of LED Dog Collar.
 
 ## Table of contents
 * [Features](#Features)
-* [Technologies](#technologies)
+* [PCB](#PCB)
+* * [Schematics](#Schematics)
 * [Setup](#setup)
+* [License](#License)
 
 ## Features
 - ATTiny85 microcontroller
