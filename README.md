@@ -1,7 +1,7 @@
 # Dog Collar
 This is a project of LED Dog Collar.
 
-![Algorithm schema](./images/main.jpg)
+![dogcollar](./images/main.jpg)
 
 # header H1
 ## header H2
@@ -9,12 +9,18 @@ This is a project of LED Dog Collar.
 #### header H4
 
 ## Table of contents
-* [General info](#general-info)
+* [Features](#Features)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
-## General info
-This project is simple Lorem ipsum dolor generator.
+## Features
+- ATTiny85
+- 1.02" 128x80 pixel Epaper display
+- Onboard battery charger
+- Optimized battery capacity estimation
+- Simple One-Button user interface (Two optional buttons available)
+- WS2812 user LED
+- LiPo battery charger with indicator LED
 	
 ## Technologies
 Project is created with:
