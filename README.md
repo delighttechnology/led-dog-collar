@@ -1,8 +1,7 @@
 # Dog Collar
 This is a project of LED Dog Collar.
 
-
-<img src="./images/main2.jpg" width="650">
+<img src="./images/main.jpg" width="650">
 
 ## Table of contents
 * [Features](#Features)
@@ -16,7 +15,11 @@ This is a project of LED Dog Collar.
 - WS2812b LEDs
 	
 ## PCB
-<img src="./images/main2.jpg" width="650">
+<p float="left">
+  <img src="/pcb1.png" width="300" />
+  <img src="/pcb2.png" width="300" /> 
+</p>
+
 * Lorem version: 12.3
 * Ipsum version: 2.33
 * Ament library version: 999
