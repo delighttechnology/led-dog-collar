@@ -1,7 +1,7 @@
 # Dog Collar
 This is a project of LED Dog Collar.
 
-<img src="./images/main.jpg" width="600">
+
 
 
 ## Table of contents
