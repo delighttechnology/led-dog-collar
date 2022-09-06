@@ -77,20 +77,20 @@
 void ChangePalettePeriodically()
 {    
     if( paletteCounter == 0)   {rainbow();}
-    if( paletteCounter == 1)   {rainbowWithGlitter(); }
-    if( paletteCounter == 2)   {Glitter(); }
+    if( paletteCounter == 1)   {rainbowWithglitter(); }
+    if( paletteCounter == 2)   {glitter(); }
     if( paletteCounter == 3)   {confetti(); }
     if( paletteCounter == 4)   {meteorRed(); }
     if( paletteCounter == 5)   {meteorLightBlue(); }
     if( paletteCounter == 6)   {meteorRainbow(); }
     if( paletteCounter == 7)   {anotherRainbow(); }
     if( paletteCounter == 8)   {rainbowBeat();}
-    if( paletteCounter == 9)   {RedWhiteBlue();}
-    if( paletteCounter == 10)  {LimeTurquoiseYellow();}
-    if( paletteCounter == 11)  {RainbowThreeDots();}
+    if( paletteCounter == 9)   {redWhiteBlue();}
+    if( paletteCounter == 10)  {limeTurquoiseYellow();}
+    if( paletteCounter == 11)  {rainbowThreeDots();}
     if( paletteCounter == 12)  {movingDots();}
-    if( paletteCounter == 13)  {Lava();}
-    if( paletteCounter == 14)  {NoiseBlueGreen();}
+    if( paletteCounter == 13)  {lava();}
+    if( paletteCounter == 14)  {noiseBlueGreen();}
     if( paletteCounter == 15)  {loopThrough();}
 
 }

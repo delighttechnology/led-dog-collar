@@ -82,20 +82,20 @@ void loop() {
 void ChangePalettePeriodically()
 {    
     if( paletteCounter == 0)   {rainbow();}
-    if( paletteCounter == 1)   {rainbowWithGlitter(); }
-    if( paletteCounter == 2)   {Glitter(); }
+    if( paletteCounter == 1)   {rainbowWithglitter(); }
+    if( paletteCounter == 2)   {glitter(); }
     if( paletteCounter == 3)   {confetti(); }
     if( paletteCounter == 4)   {meteorRed(); }
     if( paletteCounter == 5)   {meteorLightBlue(); }
     if( paletteCounter == 6)   {meteorRainbow(); }
     if( paletteCounter == 7)   {anotherRainbow(); }
     if( paletteCounter == 8)   {rainbowBeat();}
-    if( paletteCounter == 9)   {RedWhiteBlue();}
-    if( paletteCounter == 10)  {LimeTurquoiseYellow();}
-    if( paletteCounter == 11)  {RainbowThreeDots();}
+    if( paletteCounter == 9)   {redWhiteBlue();}
+    if( paletteCounter == 10)  {limeTurquoiseYellow();}
+    if( paletteCounter == 11)  {rainbowThreeDots();}
     if( paletteCounter == 12)  {movingDots();}
-    if( paletteCounter == 13)  {Lava();}
-    if( paletteCounter == 14)  {NoiseBlueGreen();}
+    if( paletteCounter == 13)  {lava();}
+    if( paletteCounter == 14)  {noiseBlueGreen();}
     if( paletteCounter == 15)  {loopThrough();}
 
 }
@@ -116,10 +116,10 @@ void rainbow() {
 
 }
 
-void rainbowWithGlitter() {
+void rainbowWithglitter() {
     // built-in FastLED rainbow, plus some random sparkly glitter
     rainbow();
-    addGlitter(80);
+    addglitter(80);
     if (loopPalettes == 1) {
         if (millis() >= time_now + period) {
             time_now += period;
@@ -131,13 +131,13 @@ void rainbowWithGlitter() {
     }
 }
 
-void addGlitter(fract8 chanceOfGlitter) {
-    if (random8() < chanceOfGlitter) {
+void addglitter(fract8 chanceOfglitter) {
+    if (random8() < chanceOfglitter) {
         leds[random16(NUM_LEDS)] += CRGB::White;
     }
 }
 
-void Glitter() {
+void glitter() {
     if (random8() < 80) {
         leds[random16(NUM_LEDS)] += CRGB::White;
     }
@@ -259,7 +259,7 @@ void rainbowBeat() {
     }
 }
 
-void RedWhiteBlue() {
+void redWhiteBlue() {
 
     uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
     uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
@@ -282,7 +282,7 @@ void RedWhiteBlue() {
     }
 }
 
-void LimeTurquoiseYellow() {
+void limeTurquoiseYellow() {
 
     uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
     uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
@@ -305,7 +305,7 @@ void LimeTurquoiseYellow() {
     }
 }
 
-void RainbowThreeDots() {
+void rainbowThreeDots() {
 
     uint16_t sinBeat = beatsin16(30, 0, NUM_LEDS - 1, 0, 0);
     uint16_t sinBeat2 = beatsin16(30, 0, NUM_LEDS - 1, 0, 21845);
@@ -362,7 +362,7 @@ CRGBPalette16 lavaPalette = CRGBPalette16(
     CRGB::White, CRGB::Orange, CRGB::Red, CRGB::DarkRed
 );
 
-void Lava() {
+void lava() {
     for (int i = 0; i < NUM_LEDS; i++) {
         uint8_t brightness = inoise8(i * MAX_BRIGHTNESS, millis() / 5);
         uint8_t index = inoise8(i * 100, millis() / 10);
@@ -381,7 +381,7 @@ void Lava() {
     }
 }
 
-void NoiseBlueGreen() {
+void noiseBlueGreen() {
 
     uint8_t octaves = 1;
     uint16_t x = 0;
