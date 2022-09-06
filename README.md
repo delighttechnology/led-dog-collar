@@ -1,7 +1,7 @@
 # Dog Collar
 This is a project of LED Dog Collar.
 
-<img src="./images/main.jpg" width="650">
+<img src="./images/main.jpg" width="700">
 
 ## Table of contents
 * [Features](#Features)
@@ -16,8 +16,8 @@ This is a project of LED Dog Collar.
 	
 ## PCB
 <p float="left">
-  <img src="./images/pcb1.png" width="320" />
-  <img src="./images/pcb2.png" width="320" /> 
+  <img src="./images/pcb1.png" width="350" />
+  <img src="./images/pcb2.png" width="350" /> 
 </p>
 
 * Lorem version: 12.3
