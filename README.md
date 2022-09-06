@@ -24,7 +24,7 @@ This is a project of LED Dog Collar.
 * Ipsum version: 2.33
 * Ament library version: 999
 
-<img src="./images/schematics.png" width="650" /> 
+### Schematics
 
 ## Setup
 To run this project, install it locally using npm:
