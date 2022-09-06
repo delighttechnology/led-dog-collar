@@ -25,8 +25,8 @@ This is a project of LED Dog Collar.
 * Ament library version: 999
 
 <p float="left">
-  <img src="./images/pcb_photo1.png" width="350" />
-  <img src="./images/pcb_photo2.png" width="350" /> 
+  <img src="./images/pcb_photo1.jpg" width="350" />
+  <img src="./images/pcb_photo2.jpg" width="350" /> 
 </p>
 
 ### Schematics
