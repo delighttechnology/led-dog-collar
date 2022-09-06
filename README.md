@@ -3,6 +3,8 @@ This is a project of LED Dog Collar.
 
 ![dogcollar](./images/main.jpg)
 
+<img src="./images/main.jpg" width="48">
+
 # header H1
 ## header H2
 ### header H3
