@@ -23,7 +23,9 @@ This is a project of LED Dog Collar.
 * Lorem version: 12.3
 * Ipsum version: 2.33
 * Ament library version: 999
-	
+
+<img src="./images/schematics.png" width="650" /> 
+
 ## Setup
 To run this project, install it locally using npm:
 
