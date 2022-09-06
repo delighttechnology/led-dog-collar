@@ -1,5 +1,4 @@
 #include <EasyButton.h>
-
 #include <FastLED.h>
 
 #define LED_PIN 2 //pin the LEDs are connected to
