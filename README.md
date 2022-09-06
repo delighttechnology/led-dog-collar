@@ -40,4 +40,6 @@ $ npm start
 ### header H3
 #### header H4
 
+Copyright © 2022, [Andrzej Strzala](https://www.linkedin.com/in/andrzejstrzala/).
+//=> Copyright (c) 2022 [Andrzej Strzala](https://www.linkedin.com/in/andrzejstrzala/)
 
