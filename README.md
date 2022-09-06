@@ -24,10 +24,8 @@ This is a project of LED Dog Collar.
 * Ipsum version: 2.33
 * Ament library version: 999
 
-<p float="left">
   <img src="./images/pcb_photo1.jpg" width="350" />
-  <img src="./images/pcb_photo2.jpg" width="350" /> 
-</p>
+
 
 ### Schematics
 
