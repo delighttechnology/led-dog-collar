@@ -10,6 +10,7 @@ The box was created in Fusion360. It took dozens ideas to make it work as it is 
 * [Features](#Features)
 * [PCB](#PCB)
 * [Reflow](#Reflow)
+* [Modeling and 3D Printing](#Modeling and 3D Printing)
 * [License](#License)
 
 ## Features
@@ -33,7 +34,11 @@ More details [here](https://forum.arduino.cc/t/enhanced-mode-mosfet-to-connect-r
 ## Reflow
 
 You can find assembly and reflow process here: [ig: delight.technology](https://www.instagram.com/reel/CfcdpeuFpSo/)
- <img src="./images/pcb_photo1.jpg" width="350" />
+<br />
+<img src="./images/pcb_photo1.jpg" width="350" />
+
+## 3D Printing
+
 
 
 ## License
