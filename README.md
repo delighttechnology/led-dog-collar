@@ -29,12 +29,12 @@ The idea behind PCB was to have as small as possible LED controller with an opti
 
  <img src="./images/onoffcircut.png" width="350" />
 
-More details [here](https://forum.arduino.cc/t/enhanced-mode-mosfet-to-connect-reset-to-button-when-in-deep-sleep/691669/5)
+You can find more information [here](https://forum.arduino.cc/t/enhanced-mode-mosfet-to-connect-reset-to-button-when-in-deep-sleep/691669/5).
 
 ## Reflow
 
 You can find assembly and reflow process here: [ig: delight.technology](https://www.instagram.com/reel/CfcdpeuFpSo/)
-<br />
+<br /><br />
 <img src="./images/pcb_photo1.jpg" width="350" />
 
 ## 3D Printing
