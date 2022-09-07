@@ -10,7 +10,7 @@ The box was created in Fusion360. It took dozens ideas to make it work as it is 
 * [Features](#Features)
 * [PCB](#PCB)
 * [Reflow](#Reflow)
-* [Modeling and 3D Printing](#Modeling and 3D Printing)
+* [Modeling and 3D Printing](#modeling-and-3d-printing)
 * [License](#License)
 
 ## Features
