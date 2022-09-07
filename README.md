@@ -37,7 +37,7 @@ You can find assembly and reflow process here: [ig: delight.technology](https://
 <br /><br />
 <img src="./images/pcb_photo1.jpg" width="350" />
 
-## 3D Printing
+## Modeling and 3D Printing
 
 
 
