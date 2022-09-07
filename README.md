@@ -32,6 +32,9 @@ The box was created in Fusion360. It took dozens ideas to make it work as it is 
 
 ### Schematics
 
+
+ <img src="./images/onoffcircut.png" width="350" />
+
 ## Setup
 To run this project, install it locally using npm:
 
