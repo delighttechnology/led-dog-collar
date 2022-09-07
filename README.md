@@ -32,8 +32,10 @@ The box was created in Fusion360. It took dozens ideas to make it work as it is 
 
 ### Schematics
 
-
+The chellange was to create the circut that could be turned ON and OFF without using the microcontroler (which would need to be powered all the time) but just with the usage of electronics. I managed to find below schematic which seems to be doing the job.
  <img src="./images/onoffcircut.png" width="350" />
+
+More details [here](https://forum.arduino.cc/t/enhanced-mode-mosfet-to-connect-reset-to-button-when-in-deep-sleep/691669/5)
 
 ## Setup
 To run this project, install it locally using npm:
