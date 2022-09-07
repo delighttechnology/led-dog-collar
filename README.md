@@ -39,7 +39,7 @@ You can find assembly and reflow process here: [ig: delight.technology](https://
 
 ## Modeling and 3D Printing
 
-
+<img src="./images/model1.png" width="350" />
 
 ## License
 
