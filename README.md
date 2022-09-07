@@ -25,14 +25,14 @@ The box was created in Fusion360. It took dozens ideas to make it work as it is 
   <img src="./images/pcb2.png" width="350" /> 
 </p>
 
-
+The idea behind PCB was to have as small as possible LED controller with an option to charge battery and change patters. Power and charging module is pretty standart TP4056 LiPo battery charger with DW01A and FS8205 modules. The chellange was to create the circut that could be turned ON and OFF without using the microcontroler (which would need to be powered all the time) but just with the usage of electronics. I managed to find below schematic which seems to be doing the job. There is also too less pins on the ATTiny85 to control the LEDs so I used DIN pad as an I/O - when you program MCU it is used as CLK, then it chanes to LED data. I used [EasyEDA](https://easyeda.com/) to create schematics.<br/> 
 
  <img src="./images/pcb_photo1.jpg" width="350" />
 
 
 ### Schematics
 
-The chellange was to create the circut that could be turned ON and OFF without using the microcontroler (which would need to be powered all the time) but just with the usage of electronics. I managed to find below schematic which seems to be doing the job. </ br>
+
  <img src="./images/onoffcircut.png" width="350" />
 
 More details [here](https://forum.arduino.cc/t/enhanced-mode-mosfet-to-connect-reset-to-button-when-in-deep-sleep/691669/5)
