@@ -33,7 +33,7 @@ You can find more information [here](https://forum.arduino.cc/t/enhanced-mode-mo
 
 ## Reflow
 
-You can find assembly and reflow process here: [ig: delight.technology](https://www.instagram.com/reel/CfcdpeuFpSo/)
+You can find assembly and reflow process video on Instagram: [delight.technology](https://www.instagram.com/reel/CfcdpeuFpSo/)
 <br /><br />
 <img src="./images/pcb_photo1.jpg" width="350" />
 
