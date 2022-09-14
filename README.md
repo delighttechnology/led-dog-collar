@@ -18,6 +18,7 @@ The box was created in Fusion360. It took dozens ideas to make it work as it is 
 - TP4056 LiPo Battery Charger with LEDs indicators
 - Simple One-Button user interface
 - WS2812b LEDs
+- pcb dimensions: 1,5cm x 4cm
 	
 ## PCB
 <p float="left">
