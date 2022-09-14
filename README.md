@@ -41,7 +41,7 @@ You can find assembly and reflow process video on Instagram: [delight.technology
 ## Modeling and 3D Printing
 ![](./images/model_anim.gif)
 
-Above you can see the parts of the connector, which were printed using PTEG filament along with a button and cap made of TPU. The housing is held in place thanks to two screws, while the tube is attached using rivets.
+The connector is built from three main parts: a main module containing shelves for PCB and a battery, and two components connecting the tube to the housing. Parts were printed using PTEG filament along with a button and cap made of TPU. The housing is held in place thanks to two screws, while the tube is attached using rivets.
 
 ## License
 
