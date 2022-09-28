@@ -5,6 +5,8 @@ Here it is the 𝗗𝗲𝗹𝗶𝗴𝗵𝘁 𝗗𝗼𝗴 𝗖𝗼𝗹𝗹𝗮�
 Inside of the enclosure there is a custom made PCB which is a WS2812B LED controller. Powered by 3.7v LiPo battery, ATTiny85 MCU with battery charging LED indicators and one button to controll them all. One click start the MCU, then you can switch animations by single click and long press turns off the controller. I reached out the limits of the memory of ATTiny85 so there is only 10 animations. <br />
 The box was created in Fusion360. It took dozens ideas to make it work as it is now (with this bending and blurring tube). At the end I decided to create a collar that is put over the dog's head as the material that diffuse leds is really stiff and unfold itself to the straight line. In general any clip fastening is marking collar shape not round. I would definitely look for another diffusing material for version 2.0.
 
+Here you can find a shot video with the collar: [You Tube - LED Dog Collar](https://www.youtube.com/shorts/56aEHcIpRsw)
+
 
 ## Table of contents
 * [Features](#Features)
